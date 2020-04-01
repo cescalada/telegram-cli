@@ -1,0 +1,87 @@
+local allowed_users_id = {1127263631}
+local command = 'Download'
+
+---------------------------------------------------
+
+started = 0
+our_id = 0
+
+print ("HI, this is lua script")
+
+function ok_cb(extra, success, result)
+end
+
+command_before = ''
+function on_msg_receive (msg)
+  if started == 0 then
+    return
+  end
+  if msg.out then
+    return
+  end
+
+ -- print('Id de ' ..msg.from.print_name.. ' : '..msg.from.peer_id)
+
+  for _,v in pairs(allowed_users_id) do
+     if v == msg.from.peer_id then
+
+	if msg.text then
+	
+	    if string.find(msg.text, "magnet") then
+	       os.execute('transmission-cli '..msg.text)
+	    end
+	end
+	   
+	if msg.media then
+
+	   if msg.media.type == 'document' then
+	      load_document(msg.id, cb_ok, msg.id)
+	   end
+	   if msg.media.type == 'photo' then
+	      load_photo(msg.id, cb_ok, msg.id)
+	   end
+	   if msg.media.type == 'video' then
+	      load_video(msg.id, cb_ok, msg.id)
+	   end
+	   if msg.media.type == 'audio' then
+	      load_audio(msg.id, cb_ok, msg.id)
+	   end
+	end
+
+        break
+
+     end
+  end
+
+
+end
+
+function on_our_id (id)
+  our_id = id
+end
+
+
+function on_user_update (user, what)
+  --vardump (user)
+end
+
+function on_chat_update (chat, what)
+  --vardump (chat)
+end
+
+function on_secret_chat_update (schat, what)
+  --vardump (schat)
+end
+
+function on_get_difference_end ()
+end
+
+function cron()
+  -- do something
+  postpone (cron, false, 1.0)
+end
+
+function on_binlog_replay_end ()
+  started = 1
+  postpone (cron, false, 1.0)
+end
