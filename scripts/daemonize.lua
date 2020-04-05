@@ -75,9 +75,10 @@ function on_msg_receive (msg)
             msg.from.print_name .. ";" ..
             msg.to.id .. ";" ..
             msg.to.phone .. ";" ..
-            msg.to.print_name .. ";" ..
-            msg.text .. ";" ..
-            tostring(msg.out)
+            msg.to.print_name .. ";"
+	if msg.text then
+            csv = csv .. msg.text .. ";"
+	end
         print ( csv )
     end
 end
