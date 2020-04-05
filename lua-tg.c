@@ -290,14 +290,18 @@ void push_media (struct tgl_message_media *M) {
   case tgl_message_media_document:
     lua_newtable (luaState);
     lua_add_string_field ("type", "document");
-    if(M->document)
+    if(M->document){
       lua_add_string_field ("caption", M->document->caption);
+      lua_add_num_field ("size", M->document->size);
+    }
     break;
   case tgl_message_media_document_encr:
     lua_newtable (luaState);
     lua_add_string_field ("type", "document");
-    if(M->encr_document)
+    if(M->encr_document){
       lua_add_string_field ("caption", M->encr_document->caption);
+      lua_add_num_field ("size", M->encr_document->size);
+    }
     break;
   case tgl_message_media_audio:
   case tgl_message_media_video:
