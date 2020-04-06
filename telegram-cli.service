@@ -1,0 +1,11 @@
+[Unit]
+Description=Telegram-cli systemd service.
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/osmc/tgc/bin/telegram-cli -s /home/osmc/tgc/scripts/downloads.lua -k /home/osmc/tgc/tg-server.pub -R -U osmc -G osmc -L /var/log/telegram-cli.log
+PIDFile=/home/osmc/tgc/bin/telegram-cli-pid.lock
+
+[Install]
+WantedBy=multi-user.target
