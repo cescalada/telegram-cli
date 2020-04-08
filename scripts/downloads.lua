@@ -12,7 +12,7 @@ local SMTP_AUTH_USER = ""
 local SMTP_AUTH_PW = ""
 local SMTP_PORT = 465
 local FROM = ""
-local TO = "cescalada@gmail.com"
+local TO = ""
 
 ---------------------------------------------------
 
